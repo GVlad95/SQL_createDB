@@ -1,0 +1,13 @@
+CREATE TABLE department_heads (
+	department_id serial NOT NULL UNIQUE,
+	head_name varchar(40) NOT NULL UNIQUE,
+	PRIMARY KEY (department_id, head_name)
+);
+
+CREATE TABLE IF NOT EXISTS employees (
+	employee_id serial NOT NULL,
+	employee_name varchar(40) NOT NULL,
+	department_id int NOT NULL REFERENCES department_heads(department_id),
+	department_head varchar(40) REFERENCES department_heads(head_name),
+	CHECK (department_head != employee_name)
+);
